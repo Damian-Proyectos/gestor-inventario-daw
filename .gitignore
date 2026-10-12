@@ -147,3 +147,10 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+#
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=gestor_inventario_db
+DB_PORT=3306

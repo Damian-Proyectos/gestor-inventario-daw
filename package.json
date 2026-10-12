@@ -1,0 +1,27 @@
+{
+  "name": "gestor-inventario-daw",
+  "version": "1.0.0",
+  "description": "Sistema Full Stack de gestión de inventario, stock en tiempo real y ventas. Desarrollado con Node.js, Express y MySQL.",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Damian-Proyectos/gestor-inventario-daw.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Damian-Proyectos/gestor-inventario-daw/issues"
+  },
+  "homepage": "https://github.com/Damian-Proyectos/gestor-inventario-daw#readme",
+  "dependencies": {
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
+    "mysql2": "^3.24.5"
+  }
+}
