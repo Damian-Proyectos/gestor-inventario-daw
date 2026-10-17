@@ -1,11 +1,16 @@
-// src/controllers/product.controller.js
-
-import {Router} from "express";
-import { obtenerProductos} from "../controllers/product.controller.js";
+import { Router } from 'express';
+import { 
+  getProducts, 
+  createProduct, 
+  updateProduct, 
+  deleteProduct 
+} from '../controllers/product.controller.js';
 
 const router = Router();
 
-// Endpoint GET: /api/products
-router.get("/", obtenerProductos);
+router.get('/', getProducts);
+router.post('/', createProduct);
+router.put('/:id', updateProduct);
+router.delete('/:id', deleteProduct);
 
 export default router;

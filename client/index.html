@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestor de Inventario</title>
+
+    <!-- Estilos simples e intuitivos para que se vea limpio -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+        background-color: #f4f6f8;
+        color: #333;
+      }
+      h1 { text-align: center; color: #2c3e50; }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th { background-color: #3498db; color: white; }
+      tr:hover { background-color: #f1f1f1; }
+    </style>
+  </head>
+  <body>
+    <h1>📦 Gestor de Inventario</h1>
+
+    <!-- Tabla donde cargaremos los productos dinámicamente -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Color</th>
+          <th>Categoría</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-productos">
+        <!-- Los datos desde TypeScript se inyectarán aquí -->
+      </tbody>
+    </table>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
