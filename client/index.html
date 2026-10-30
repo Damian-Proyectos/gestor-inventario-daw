@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestor de Inventario</title>
-
-    <!-- Estilos simples e intuitivos para que se vea limpio -->
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -15,7 +13,30 @@
         background-color: #f4f6f8;
         color: #333;
       }
-      h1 { text-align: center; color: #2c3e50; }
+      h1, h2 { text-align: center; color: #2c3e50; }
+      form {
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 5px;
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 1fr 1fr;
+      }
+      form div { display: flex; flex-direction: column; }
+      form button {
+        grid-column: span 2;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 4px;
+      }
+      form button:hover { background-color: #2980b9; }
+      input { padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
       table {
         width: 100%;
         border-collapse: collapse;
@@ -23,11 +44,7 @@
         background: #fff;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       }
-      th, td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
+      th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
       th { background-color: #3498db; color: white; }
       tr:hover { background-color: #f1f1f1; }
     </style>
@@ -35,7 +52,28 @@
   <body>
     <h1>📦 Gestor de Inventario</h1>
 
-    <!-- Tabla donde cargaremos los productos dinámicamente -->
+    <!-- Formulario para crear productos -->
+    <form id="product-form">
+      <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required />
+      </div>
+      <div>
+        <label for="precio">Precio:</label>
+        <input type="number" step="0.01" id="precio" required />
+      </div>
+      <div>
+        <label for="color">Color:</label>
+        <input type="text" id="color" />
+      </div>
+      <div>
+        <label for="categoria">Categoría:</label>
+        <input type="text" id="categoria" />
+      </div>
+      <button type="submit">Guardar Producto</button>
+    </form>
+
+    <h2>Lista de Productos</h2>
     <table>
       <thead>
         <tr>
@@ -47,7 +85,7 @@
         </tr>
       </thead>
       <tbody id="tabla-productos">
-        <!-- Los datos desde TypeScript se inyectarán aquí -->
+        <!-- Los datos se inyectarán aquí por TypeScript -->
       </tbody>
     </table>
 

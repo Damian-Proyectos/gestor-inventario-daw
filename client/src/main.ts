@@ -1,22 +1,21 @@
-// 1. Definimos la interfaz del Producto (fundamental para TypeScript)
+// Definimos las interfaces tipadas para TypeScript
 interface Producto {
-  id: number;
+  id?: number;
   nombre: string;
-  precio: string | number;
-  color?: string | null;
-  categoria?: string | null;
+  precio: number | string;
+  color?: string;
+  categoria?: string;
 }
 
-// Interfaz para la respuesta estructurada de nuestro Backend
 interface APIRespuesta {
   success: boolean;
   data: Producto[];
 }
 
-// 2. Elemento HTML donde inyectaremos las filas
 const tablaProductos = document.getElementById('tabla-productos') as HTMLTableSectionElement;
+const productForm = document.getElementById('product-form') as HTMLFormElement;
 
-// 3. Función asíncrona con TypeScript para traer los productos de la API
+// Función para obtener y pintar los productos desde el Backend
 async function cargarProductos(): Promise<void> {
   try {
     const respuesta = await fetch('http://localhost:3000/api/products');
@@ -24,32 +23,63 @@ async function cargarProductos(): Promise<void> {
 
     if (resultado.success) {
       renderizarTabla(resultado.data);
-    } else {
-      console.error('Error en los datos recibidos de la API');
     }
   } catch (error) {
-    console.error('Error de conexión con la API:', error);
+    console.error('Error al conectar con la API:', error);
   }
 }
 
-// 4. Función para pintar los datos en el HTML
+// Función para renderizar filas en la tabla HTML
 function renderizarTabla(productos: Producto[]): void {
-  tablaProductos.innerHTML = ''; // Limpiamos la tabla antes de pintar
-
-  productos.forEach((producto: Producto) => {
+  tablaProductos.innerHTML = '';
+  productos.forEach((p) => {
     const fila = document.createElement('tr');
-    
     fila.innerHTML = `
-      <td>${producto.id}</td>
-      <td><strong>${producto.nombre}</strong></td>
-      <td>${producto.precio} €</td>
-      <td>${producto.color || '-'}</td>
-      <td>${producto.categoria || '-'}</td>
+      <td>${p.id}</td>
+      <td><strong>${p.nombre}</strong></td>
+      <td>${p.precio} €</td>
+      <td>${p.color || '-'}</td>
+      <td>${p.categoria || '-'}</td>
     `;
-
     tablaProductos.appendChild(fila);
   });
 }
 
-// Ejecutamos la carga al iniciar
+// Evento para enviar el formulario y registrar un nuevo producto mediante POST
+productForm.addEventListener('submit', async (e: Event) => {
+  e.preventDefault();
+
+  const nombre = (document.getElementById('nombre') as HTMLInputElement).value;
+  const precio = (document.getElementById('precio') as HTMLInputElement).value;
+  const color = (document.getElementById('color') as HTMLInputElement).value;
+  const categoria = (document.getElementById('categoria') as HTMLInputElement).value;
+
+  const nuevoProducto: Producto = {
+    nombre,
+    precio: Number(precio),
+    color: color || undefined,
+    categoria: categoria || undefined
+  };
+
+  try {
+    const respuesta = await fetch('http://localhost:3000/api/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(nuevoProducto)
+    });
+
+    if (respuesta.ok) {
+      productForm.reset();
+      cargarProductos(); // Recarga la tabla automáticamente tras guardar
+    } else {
+      console.error('Error al guardar el producto en la base de datos');
+    }
+  } catch (error) {
+    console.error('Error de red al intentar crear el producto:', error);
+  }
+});
+
+// Carga inicial al abrir la página
 cargarProductos();
